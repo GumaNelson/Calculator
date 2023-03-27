@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial;
+    }
+    .calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+    .calculator button {
+      font-size: 20px;
+      padding: 10px;
+    }
+    .screen {
+      grid-column: span 4;
+      font-size: 30px;
+      text-align: right;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <input type="text" class="screen" id="screen">
+  <button onclick="addToScreen('1')">1</button>
+  <button onclick="addToScreen('2')">2</button>
+  <button onclick="addToScreen('3')">3</button>
+  <button onclick="addToScreen('+')">+</button>
+  
+  <button onclick="addToScreen('4')">4</button>
+  <button onclick="addToScreen('5')">5</button>
+  <button onclick="addToScreen('6')">6</button>
+  <button onclick="addToScreen('-')">-</button>
+  
+  <button onclick="addToScreen('7')">7</button>
+  <button onclick="addToScreen('8')">8</button>
+  <button onclick="addToScreen('9')">9</button>
+  <button onclick="addToScreen('*')">*</button>
+  
+  <button onclick="addToScreen('.')">.</button>
+  <button onclick="addToScreen('0')">0</button>
+  <button onclick="clearScreen()">C</button>
+  <button onclick="addToScreen('/')">/</button>
+
+  <button onclick="addToScreen('(')">(</button>
+  <button onclick="addToScreen(')')">)</button>
+  <button onclick="calculate()">=</button>
+  <button onclick="deleteLast()">DEL</button>
+
+  <!-- trigonometric and logarithmic functions -->
+  <br><br><br><br><br><br><br><br><br><br>Trigonometric and Logarithmic Functions<br><br>
+
+<button onclick="addToScreen('sin(')">sin( )</buttom> 
+<button onclick="addToScreen('cos(')">cos( )</buttom> 
+<button onclick="addToScreen('tan(')">tan( )</buttom> 
+<button onclick="addToScreen('log(')">log( )</buttom> 
+<button onclick="addToScreen('ln(')">ln( )</buttom> 
+
+</div>
+
+<script>
+  function addToScreen(value) {
+    document.getElementById("screen").value += value;
+  }
+  function deleteLast() {
+  let screen = document.getElementById("screen");
+  screen.value = screen.value.slice(0, -1);
+}
+  function clearScreen() {
+    document.getElementById("screen").value = "";
+  }
+  
+  function calculate() {
+  let expression = document.getElementById("screen").value;
+  expression = expression.replace(/sin/g, "Math.sin");
+  expression = expression.replace(/cos/g, "Math.cos");
+  expression = expression.replace(/tan/g, "Math.tan");
+  expression = expression.replace(/log/g, "Math.log10");
+  expression = expression.replace(/ln/g, "Math.log");
+  
+  let result;
+  try {
+    result = eval(expression);
+  } catch (e) {
+    result = e.message;
+  }
+  
+  document.getElementById("screen").value = result;
+}
+</script>
+
+</body>
+</html>
